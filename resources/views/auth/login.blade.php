@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Login</title>
-</head>
-<body>
-<h2>Admin Login</h2>
+<form method="POST" action="{{ route('admin.login.submit') }}">
+    @csrf
 
-<form>
-    <input type="email" placeholder="Email"><br><br>
-    <input type="password" placeholder="Password"><br><br>
-    <button>Login</button>
+    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+    @error('email')
+        <div style="color:red">{{ $message }}</div>
+    @enderror
+
+    <input type="password" name="password" placeholder="Password">
+    @error('password')
+        <div style="color:red">{{ $message }}</div>
+    @enderror
+
+    <button type="submit">Login</button>
 </form>
 
-</body>
-</html>
+@if(session('error'))
+    <div style="color:red">{{ session('error') }}</div>
+@endif
