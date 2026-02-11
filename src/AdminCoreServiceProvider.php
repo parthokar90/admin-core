@@ -31,5 +31,13 @@ class AdminCoreServiceProvider extends ServiceProvider
             __DIR__.'/../config/admin-core.php' =>
                 config_path('admin-core.php'),
         ], 'admin-core-config');
+
+        //run command
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \ParthoKar\AdminCore\Console\InstallAdminCoreCommand::class,
+            ]);
+        }
+
     }
 }
