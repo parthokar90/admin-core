@@ -1,0 +1,20 @@
+{
+    "name": "parthokar/admin-core",
+    "description": "Admin dashboard with role & permission management for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ParthoKar\\AdminCore\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ParthoKar\\AdminCore\\AdminCoreServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
