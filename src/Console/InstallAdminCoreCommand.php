@@ -31,7 +31,7 @@ class InstallAdminCoreCommand extends Command
         $admin = Admin::firstOrCreate(
             ['email' => $email],
             [
-                'name' => 'Super Admin',
+                'name' => 'Admin',
                 'password' => Hash::make($password),
             ]
         );
@@ -45,6 +45,7 @@ class InstallAdminCoreCommand extends Command
         $permissions = [
             ['name' => 'Manage Users', 'slug' => 'manage-users'],
             ['name' => 'Manage Roles', 'slug' => 'manage-roles'],
+            ['name' => 'Manage Permissions', 'slug' => 'manage-permissions'],
         ];
 
         foreach ($permissions as $perm) {

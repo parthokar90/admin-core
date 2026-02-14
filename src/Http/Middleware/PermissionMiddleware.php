@@ -13,7 +13,7 @@ class PermissionMiddleware
         $admin = auth('admin')->user();
 
         if (!$admin || !$admin->hasPermission($permission)) {
-            abort(403, 'Unauthorized');
+            abort(403, 'Permission Denied');
         }
 
         return $next($request);
