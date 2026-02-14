@@ -3,22 +3,21 @@
 use Illuminate\Support\Facades\Route;
 
 use ParthoKar\AdminCore\Http\Controllers\Auth\LoginController;
-
 use ParthoKar\AdminCore\Http\Controllers\Admin\DashboardController;
-
 use ParthoKar\AdminCore\Http\Controllers\Admin\RoleController;
-
 use ParthoKar\AdminCore\Http\Controllers\Admin\PermissionController;
-
 use ParthoKar\AdminCore\Http\Controllers\Admin\UserController;
 
-Route::middleware('web')
-    ->prefix(config('admin-core.admin_route_prefix'))
+Route::prefix(config('admin-core.admin_route_prefix'))
     ->name('admin.')
     ->group(function () {
 
-        // Guest Routes
-        Route::middleware('guest:admin')->group(function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Guest Admin Routes
+        |--------------------------------------------------------------------------
+        */
+        Route::middleware(['web', 'guest:admin'])->group(function () {
 
             Route::get('/login', [LoginController::class, 'showLogin'])
                 ->name('login');
@@ -27,8 +26,12 @@ Route::middleware('web')
                 ->name('login.submit');
         });
 
-        // Authenticated Admin Routes
-        Route::middleware('auth:admin')->group(function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Authenticated Admin Routes
+        |--------------------------------------------------------------------------
+        */
+        Route::middleware(['web', 'auth:admin'])->group(function () {
 
             Route::get('/dashboard', [DashboardController::class, 'index'])
                 ->name('dashboard');
@@ -36,11 +39,14 @@ Route::middleware('web')
             Route::post('/logout', [LoginController::class, 'logout'])
                 ->name('logout');
 
-            Route::resource('roles', RoleController::class);
+            // Protected by permission middleware
+            Route::resource('roles', RoleController::class)
+                ->middleware('permission:manage-roles');
 
-            Route::resource('permissions', PermissionController::class);
+            Route::resource('permissions', PermissionController::class)
+                ->middleware('permission:manage-permissions');
 
-            Route::resource('users', UserController::class);
-            
+            Route::resource('users', UserController::class)
+                ->middleware('permission:manage-users');
         });
     });

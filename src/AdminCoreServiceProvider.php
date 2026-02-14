@@ -8,7 +8,7 @@ class AdminCoreServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // config merge
+        // Merge package config
         $this->mergeConfigFrom(
             __DIR__.'/../config/admin-core.php',
             'admin-core'
@@ -17,27 +17,61 @@ class AdminCoreServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // routes load
+        /*
+        |--------------------------------------------------------------------------
+        | Load Package Core Files
+        |--------------------------------------------------------------------------
+        */
         $this->loadRoutesFrom(__DIR__.'/../routes/admin.php');
 
-        // views load
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin-core');
 
-        // migrations load
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        // publish config
-        $this->publishes([
-            __DIR__.'/../config/admin-core.php' =>
-                config_path('admin-core.php'),
-        ], 'admin-core-config');
+        /*
+        |--------------------------------------------------------------------------
+        | Publishable Resources
+        |--------------------------------------------------------------------------
+        */
+        if ($this->app->runningInConsole()) {
 
-        //run command
+            $this->publishes([
+                __DIR__.'/../config/admin-core.php' => config_path('admin-core.php'),
+            ], 'admin-core-config');
+
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/admin-core'),
+            ], 'admin-core-views');
+
+            $this->publishes([
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+            ], 'admin-core-migrations');
+
+            $this->publishes([
+                __DIR__.'/../routes/admin.php' => base_path('routes/admin-core.php'),
+            ], 'admin-core-routes');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Register Middleware
+        |--------------------------------------------------------------------------
+        */
+        $router = $this->app['router'];
+        $router->aliasMiddleware(
+            'permission',
+            \ParthoKar\AdminCore\Http\Middleware\PermissionMiddleware::class
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Register Console Commands
+        |--------------------------------------------------------------------------
+        */
         if ($this->app->runningInConsole()) {
             $this->commands([
                 \ParthoKar\AdminCore\Console\InstallAdminCoreCommand::class,
             ]);
         }
-
     }
 }

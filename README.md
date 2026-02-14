@@ -19,16 +19,48 @@ Installable via Composer, it allows developers to quickly integrate a powerful a
 
 ### 1. Require the package via Composer (local or GitHub)
 ```bash
-composer require parthokar/admin-core:@dev
+composer require parthokar/admin-core
+```
+
+### Artisan Commands
+
+Install Admin-Core and create default admin:
+
+Creates default admin user
+
+Creates default roles & permissions
+
+Runs package migrations
+
+```bash
+php artisan admin-core:install
 ```
 
 ## Publish config (optional)
+
+1: Config Publish
 
 ```bash
 php artisan vendor:publish --tag=admin-core-config
 ```
 
----
+2: views Publish
+
+```bash
+php artisan vendor:publish --tag=admin-core-views
+```
+
+3: Routes Publish
+
+```bash
+php artisan vendor:publish --tag=admin-core-routes
+```
+
+4: Migrations Publish
+
+```bash
+php artisan vendor:publish --tag=admin-core-migrations
+```
 
 ### Configuration
 1. Auth Guard
@@ -53,22 +85,6 @@ Open config/auth.php in your Laravel project and add:
 
 ---
 
-### Artisan Commands
-
-Install Admin-Core and create default admin:
-
-Creates default admin user
-
-Creates default roles & permissions
-
-Runs package migrations
-
-```bash
-php artisan admin-core:install
-```
-
----
-
 Routes
 
 /admin/login → Admin login page
@@ -77,7 +93,7 @@ Routes
 
 /admin/logout → Logout
 
-## Verify package loaded
+## Run the project
 ```bash
 php artisan serve
 ```
@@ -89,5 +105,5 @@ http://localhost:8000/admin/dashboard
 
 ---
 Default admin credentials
-email: admin@example.com
+email: admin@email.com
 password: password123
