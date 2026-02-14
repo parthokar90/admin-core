@@ -33,11 +33,11 @@ class Admin extends Authenticatable
     // Check if admin has permission
     public function hasPermission(string $permission): bool
     {
-        foreach ($this->roles as $role) {
-            if ($role->permissions->contains('slug', $permission)) {
-                return true;
-            }
-        }
-        return false;
+        return $this->roles()
+            ->whereHas('permissions', function ($query) use ($permission) {
+            $query->where('slug', $permission);
+        })
+        ->exists();
     }
+
 }
