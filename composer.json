@@ -8,6 +8,9 @@
             "ParthoKar\\AdminCore\\": "src/"
         }
     },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "extra": {
         "laravel": {
             "providers": [

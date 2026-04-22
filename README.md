@@ -1,3 +1,5 @@
+![Tests](https://github.com/parthokar90/admin-core/actions/workflows/ci-package.yml/badge.svg)
+
 # Admin Core
 
 **Admin Core** is a Laravel package that provides a ready-to-use admin dashboard with authentication, role and permission management, and user management foundation.  
