@@ -2,7 +2,7 @@
 
 namespace Partho\AdminCore\Tests\Feature;
 
-use Partho\AdminCore\Tests\TestCase;
+use ParthoKar\AdminCore\Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
