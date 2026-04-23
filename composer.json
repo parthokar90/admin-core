@@ -6,7 +6,7 @@
     "autoload": {
         "psr-4": {
             "ParthoKar\\AdminCore\\": "src/",
-            "Partho\\AdminCore\\Tests\\": "tests/"
+            "ParthoKar\\AdminCore\\Tests\\": "tests/"
         }
     },
     "require-dev": {
