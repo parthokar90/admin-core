@@ -1,6 +1,6 @@
 <?php
 
-namespace Partho\AdminCore\Tests\Feature;
+namespace ParthoKar\AdminCore\Tests\Feature;
 
 use ParthoKar\AdminCore\Tests\TestCase;
 
