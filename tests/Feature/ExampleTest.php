@@ -1,0 +1,15 @@
+<?php
+
+namespace Partho\AdminCore\Tests\Feature;
+
+use Partho\AdminCore\Tests\TestCase;
+
+class ExampleTest extends TestCase
+{
+    public function test_package_service_provider_loads()
+    {
+        $this->assertTrue(class_exists(
+            \Partho\AdminCore\AdminCoreServiceProvider::class
+        ));
+    }
+}
