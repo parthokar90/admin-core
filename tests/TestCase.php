@@ -9,7 +9,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Partho\AdminCore\AdminCoreServiceProvider::class,
+            \ParthoKar\AdminCore\AdminCoreServiceProvider::class,
         ];
     }
 }
