@@ -1,33 +1,40 @@
 <?php
 
-namespace Partho\AdminCore\Tests;
+namespace ParthoKar\AdminCore\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
+use ParthoKar\AdminCore\AdminCoreServiceProvider;
 
 class TestCase extends Orchestra
 {
     protected function getPackageProviders($app)
     {
         return [
-            \ParthoKar\AdminCore\AdminCoreServiceProvider::class,
+            AdminCoreServiceProvider::class,
         ];
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        // Set valid encryption key (required for session/auth)
+        // Required encryption key
         $app['config']->set(
             'app.key',
             'base64:' . base64_encode(random_bytes(32))
         );
 
-        // Use array session driver for testing
+        // Session driver for testing
         $app['config']->set('session.driver', 'array');
 
-        // Optional but recommended
-        $app['config']->set('app.debug', true);
+        // Define admin auth guard (IMPORTANT FIX)
+        $app['config']->set('auth.guards.admin', [
+            'driver' => 'session',
+            'provider' => 'users',
+        ]);
 
-        // Optional database config (safe default)
-        $app['config']->set('database.default', 'testing');
+        // Define provider
+        $app['config']->set('auth.providers.users', [
+            'driver' => 'eloquent',
+            'model' => \Illuminate\Foundation\Auth\User::class,
+        ]);
     }
 }
