@@ -12,4 +12,9 @@ class TestCase extends Orchestra
             \ParthoKar\AdminCore\AdminCoreServiceProvider::class,
         ];
     }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('app.key', 'base64:SomeRandomStringSomeRandomStringSomeRandomString=');
+    }
 }
