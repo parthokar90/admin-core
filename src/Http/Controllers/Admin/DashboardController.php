@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-
+       //User role and total permission count    
        $data['totalUsers'] = Admin::count();
 
        $data['totalRoles'] = Role::count();
